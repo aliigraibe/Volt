@@ -1,12 +1,20 @@
+
 const express = require("express");
+const db = require("./db/models")
+
+//Routes
+const productsRoutes = require("./routes/products");
+//Creat App Instence
 const app = express();
-const data = require("./data")
 
-app.listen(8000, () => {
-    console.log("The application is running on localhost:8000");
-});
+app.use(express.json());
+//routes
+app.use("/products", productsRoutes);
 
-  
-  app.get("/data", (req, res) => {
-    res.json(data);
+
+db.sequelize.sync();
+
+const PORT = 8000;
+app.listen(PORT, () => {
+  console.log(`The application is running on localhost: ${PORT}`);
 });
