@@ -1,14 +1,14 @@
-let {Product} = require("../db/models");
+let {event} = require("../db/models");
 const slugify = require("slugify");
 
-exports.productsList = async(req, res) => {
+exports.eventsLis = async(req, res) => {
   try {
-      const allProducts = await Product.findAll(
+      const allEvents = await event.findAll(
         {
           attributes :{exclude : ["createdAt","updatedAt"]}
         }
       )
-      res.json(allProducts)
+      res.json(allEvents )
   } catch (error) {
     res.status(500).json({message : error.message})
     
@@ -26,10 +26,10 @@ exports.productsList = async(req, res) => {
 //   }
 // };
 
-exports.productsAdd = async (req, res) => {
+exports. eventsAdd = async (req, res) => {
   try {
-    const newProduct = await Product.create(req.body)
-    res.status(201).json(newProduct)
+    const newEvent = await event.create(req.body)
+    res.status(201).json(newEvent )
   } catch (error) {
 
     res.status(500).json({message : error.message})
@@ -37,12 +37,12 @@ exports.productsAdd = async (req, res) => {
   
 };
 
-exports.productsDelete = async (req, res) => {
-  const {productId}=req.params
+exports.eventsDelete = async (req, res) => {
+  const {eventId}=req.params
   try {
-    const foundProduct = await Product.findByPk(productId)
-    if (foundProduct) {
-    await foundProduct.destroy()
+    const foundEvent = await event.findByPk(eventId)
+    if (foundEvent) {
+    await foundEvent.destroy()
     res.status(204).end()}
    
   else{
@@ -57,11 +57,11 @@ exports.productsDelete = async (req, res) => {
 };
 
 exports.updateProducts = async (req,res)=>{
-const {productId} = req.params
+const {eventId} = req.params
 try {
-  const foundProduct = await Product.findByPk(productId)
-  if (foundProduct) {
-  await foundProduct.update()
+  const foundEvent = await Product.findByPk(eventId)
+  if (foundEvent) {
+  await foundEvent.update()
   res.status(204).end()}
  
 else{
