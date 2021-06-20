@@ -1,18 +1,13 @@
-
 const express = require("express");
-const db = require("./db/models")
+const db = require("./db/models");
 
-//Routes
-const eventsRoutes = require("./routes/events");
-//Creat App Instence
+const events = require("./routes/events");
 const app = express();
 
 app.use(express.json());
-//routes
-app.use("/event", eventsRoutes);
+app.use("/events", events);
 
-
-db.sequelize.sync();
+db.sequelize.sync({ force: true });
 
 const PORT = 8080;
 app.listen(PORT, () => {
